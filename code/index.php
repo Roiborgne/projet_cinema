@@ -1,4 +1,8 @@
 <?php
+require_once "../assets/pdo.php";
+require_once "fonction.php";
+
+head();
 ?>
 <!doctype html>
 <html lang="en">
@@ -10,47 +14,81 @@
     <link rel="stylesheet" href="../assets/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <style>
+        section {
+            padding: 60px 0;
+        }
+    </style>
+
     <title>Cinemathèque</title>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Cinethèque</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-secondary" type="submit">Rechercher</button>
-                </form>
+
+<div class = "container mt-2" >
+    <h1 class="text-primary text-bg-secondary">Dernier ajouts</h1>
+    <div id="carousel" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="<?php echo($images[count($films)-1]);?>" class="d-block w-100  h-75" alt="1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5><?php echo($titres[count($films)-1]);?></h5>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="<?php echo($images[count($films)-2]);?>" class="d-block w-100 h-75" alt="2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5><?php echo($titres[count($films)-2]);?></h5>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="<?php echo($images[count($films)-3]);?>" class="d-block w-100 h-75" alt="3">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5><?php echo($titres[count($films)-3]);?></h5>
+                </div>
             </div>
         </div>
-    </nav>
-</header>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
 
+<div class="container text-center mt-3">
+    <h1 class="text-start text-primary text-bg-secondary">Tous les films</h1>
+    <div class="row row-cols-auto">
+        <?php for ($i = 0; $i < count($films); $i++) {?>
+        <div class="card col m-4" style="width: 18rem;">
+            <img src="<?php echo($images[$i]);?>" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title text-danger"><?php echo($titres[$i]);?> </h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <?php $seconds = $durees[$i]*60;
+                    echo "durée : ".gmdate("H : i", $seconds); ?>
+                </li>
+            </ul>
+            <div class="card-body">
+                <?php
+                echo ('<a href="./detail.php?nom='.$i.'" class="card-link">Détail</a>');
+                ?>
+
+            </div>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+
+<script src="../assets/bootstrap.bundle.min.js"></script>
 </body>
 </html>
