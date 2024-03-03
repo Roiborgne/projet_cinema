@@ -14,12 +14,6 @@ head();
     <link rel="stylesheet" href="../assets/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <style>
-        section {
-            padding: 60px 0;
-        }
-    </style>
-
     <title>Cinemathèque</title>
 </head>
 <body>
