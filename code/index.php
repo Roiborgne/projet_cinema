@@ -59,7 +59,7 @@ head();
 
 <div class="container text-center mt-3">
     <h1 class="text-start text-primary text-bg-secondary">Tous les films</h1>
-    <div class="row row-cols-auto">
+    <div class="row row-cols-auto justify-content-center">
         <?php for ($i = 0; $i < count($films); $i++) {?>
         <div class="card col m-4" style="width: 18rem;">
             <img src="<?php echo($images[$i]);?>" class="card-img-top" alt="...">
