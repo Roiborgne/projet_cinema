@@ -34,48 +34,33 @@ head();
         <div class="col border">
             <img class="d-block w-75 h-75 my-5 mx-auto" src="<?php echo($images[$nom]);?>" alt="affiche">
         </div>
-        <table class="col align-middle text-center border ">
-            <tbody>
-            <tr>
-                <td>
-                    <p class="mx-auto text-decoration-underline"><?php echo "pays :" ?> </p>
-                </td>
-                <td>
-                    <p class="mx-auto">
-                        <?php echo ($pays[$nom]); ?>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p class="mx-auto text-decoration-underline"><?php echo "date :" ?> </p>
-                </td>
-                <td>
-                    <p class="mx-auto">
-                        <?php echo ($dates[$nom]); ?>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p class="mx-auto text-decoration-underline"><?php echo "durées :" ?> </p>
-                </td>
-                <td>
-                    <p class="mx-auto">
-                        <?php $seconds = $durees[$nom]*60;
-                        echo gmdate("H \h i", $seconds); ?>
-                    </p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="col align-middle text-center border ">
+            <div><p class="mx-auto text-decoration-underline"><?php echo "pays :" ?> </p>
+                <p class="mx-auto">
+                    <?php echo ($pays[$nom]); ?>
+                </p>
+            </div>
+            <div>
+                <p class="mx-auto text-decoration-underline"><?php echo "date :" ?> </p>
+                <p class="mx-auto">
+                    <?php echo ($dates[$nom]); ?>
+                </p>
+            </div>
+            <div>
+                <p class="mx-auto text-decoration-underline"><?php echo "durées :" ?> </p>
+                <p class="mx-auto">
+                    <?php $seconds = $durees[$nom]*60;
+                    echo gmdate("H \h i", $seconds); ?>
+                </p>
+            </div>
+            <div class="container mt-3">
+                <h3 class="text-center text-primary text-bg-secondary mt-3">Résumé</h3>
+                <p class="text-start"><?php echo($resumes[$nom]);?></p>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="container mt-3">
-    <h3 class="text-center text-primary text-bg-secondary mt-3">Résumé</h3>
-    <p class="text-start"><?php echo($resumes[$nom]);?></p>
-</div>
 </body>
 </html>
 

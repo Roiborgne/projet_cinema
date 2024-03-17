@@ -18,6 +18,7 @@ head();
 </head>
 <body>
 <main>
+    <h1 class="text-primary text-center m-3">Accueil</h1>
     <div class = "container mt-2" >
         <h1 class="text-primary text-bg-secondary">Dernier ajouts</h1>
         <div id="carousel" class="carousel slide carousel-dark">
@@ -57,34 +58,7 @@ head();
         </div>
     </div>
 
-    <div class="container text-center mt-3">
-        <h1 class="text-start text-primary text-bg-secondary">Tous les films</h1>
-        <div class="row row-cols-auto justify-content-center">
-            <?php for ($i = 0; $i < count($films); $i++) {?>
-                <div class="card col m-4" style="width: 18rem;">
-                    <img src="<?php echo($images[$i]);?>" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title text-danger"><?php echo($titres[$i]);?> </h5>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <?php $seconds = $durees[$i]*60;
-                            echo "durée : ".gmdate("H", $seconds)." h ".gmdate("i", $seconds); ?>
-                        </li>
-                    </ul>
-                    <div class="card-body">
-                        <?php
-                        echo ('<a href="./detail.php?nom='.$i.'" class="card-link">Détail</a>');
-                        ?>
-
-                    </div>
-                </div>
-            <?php } ?>
-        </div>
-    </div>
-</main>
-
-
 <script src="../assets/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

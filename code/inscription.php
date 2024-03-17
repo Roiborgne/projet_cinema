@@ -72,7 +72,7 @@ if (empty($erreurs)){
     ]);
 
 //Rediriger l'utilisateur vers une autre page du site (Page accueil)
-    header(header:"Location: ./index.php");
+    header(header:"Location: ./films.php");
     exit();
 }
 

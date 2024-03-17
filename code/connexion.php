@@ -39,7 +39,7 @@ if (empty($erreurs)){
     //traiter les infos
     if (password_verify($mdp, $mdpget)) {
         //Rediriger l'utilisateur vers une autre page du site (Page accueil)
-        header(header:"Location: ./index.php");
+        header(header:"Location: ./films.php");
         exit();
     }else{
         $mdp = "Le mdp est incorrect";
