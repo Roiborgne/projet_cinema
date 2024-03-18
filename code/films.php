@@ -1,6 +1,6 @@
 <?php
-require_once "../assets/pdo.php";
-require_once "fonction.php";
+require_once '../base.php';
+require_once BASE_PROJET .'/src/config/config-db.php';
 
 head();
 ?>
@@ -17,30 +17,41 @@ head();
     <title>Cinemathèque</title>
 </head>
 <body>
-<main>l
+<main>
     <div class="container text-center mt-3">
         <h1 class="text-start text-primary text-bg-secondary">Tous les films</h1>
         <div class="row row-cols-auto justify-content-center">
-            <?php for ($i = 0; $i < count($films); $i++) {?>
+            <?php $debut = 0;
+            for ($i = $debut; $i < count($films) ; $i++) {?>
                 <div class="card col m-4" style="width: 18rem;">
-                    <img src="<?php echo($images[$i]);?>" class="card-img-top" alt="...">
+                    <img src="<?php echo($images[$i]);?>" class="card-img-top pt-2" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-danger"><?php echo($titres[$i]);?> </h5>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <?php $seconds = $durees[$i]*60;
-                            echo "durée : ".gmdate("H", $seconds)." h ".gmdate("i", $seconds); ?>
+                            echo gmdate("H", $seconds)." h ".gmdate("i", $seconds); ?>
                         </li>
                     </ul>
                     <div class="card-body">
                         <?php
-                        echo ('<a href="./detail.php?nom='.$i.'" class="card-link">Détail</a>');
+                        echo ('<a href="./detail.php?nom='.$i.'"
+                        class="btn btn-primary btn-outline-dark rounded-pill text-decoration-none border-dark">Détail</a>');
                         ?>
-
                     </div>
                 </div>
             <?php } ?>
+
+            <nav aria-label="Page navigation example" class="col-12">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </main>
