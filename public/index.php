@@ -1,11 +1,20 @@
 <?php
 require_once '../base.php';
-require_once BASE_PROJET .'/src/config/pdo.php';
 require_once BASE_PROJET .'/src/_partials/header.php';
 require_once BASE_PROJET .'/src/database/base_films.php';
 require_once BASE_PROJET .'/src/database/base_utilisateurs.php';
 
 head();
+$films = recupFilms();
+foreach ($films as $champs) {
+    $ids [] = $champs ["id"];
+    $titres [] = $champs ["titre"] ;
+    $durees [] = $champs ["durée"] ;
+    $resumes [] = $champs ["résumé"] ;
+    $dates [] = $champs ["date"] ;
+    $pays [] = $champs ["pays"] ;
+    $images [] = $champs ["image"];
+}
 ?>
 <!doctype html>
 <html lang="en">

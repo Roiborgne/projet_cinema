@@ -1,18 +1,16 @@
 <?php
-require_once '../database/base2.php';
 
-
-$test_film = $pdo-> prepare('SELECT * FROM film');
-$test_film -> execute();
-$films = $test_film->fetchAll();
-
-foreach ($films as $champs) {
-    $ids [] = $champs ["id"];
-    $titres [] = $champs ["titre"] ;
-    $durees [] = $champs ["durée"] ;
-    $resumes [] = $champs ["résumé"] ;
-    $dates [] = $champs ["date"] ;
-    $pays [] = $champs ["pays"] ;
-    $images [] = $champs ["image"];
+function recupFilms(): array
+{
+    $pdo = connexion();
+    $films = $pdo->query("SELECT * FROM film");
+    return $films->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+function recupDetails($nom): array
+{
+    $pdo = connexion();
+    $details = $pdo->query("SELECT * FROM film WHERE id = $nom ");
+    return $details->fetch(PDO::FETCH_ASSOC);
+}

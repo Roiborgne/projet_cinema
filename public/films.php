@@ -1,12 +1,22 @@
 <?php
 require_once '../base.php';
-require_once BASE_PROJET .'/src/config/pdo.php';
 require_once BASE_PROJET .'/src/_partials/header.php';
 require_once BASE_PROJET .'/src/database/base_films.php';
 require_once BASE_PROJET .'/src/database/base_utilisateurs.php';
 
 head();
+$films = recupFilms();
+foreach ($films as $champs) {
+    $ids [] = $champs ["id"];
+    $titres [] = $champs ["titre"] ;
+    $durees [] = $champs ["durée"] ;
+    $resumes [] = $champs ["résumé"] ;
+    $dates [] = $champs ["date"] ;
+    $pays [] = $champs ["pays"] ;
+    $images [] = $champs ["image"];
+}
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,14 +32,14 @@ head();
 <body>
 <main>
     <div class="container text-center mt-3">
-        <h1 class="text-start text-primary text-bg-secondary">Tous les films</h1>
+        <h1 class="text-start text-primary text-bg-secondary">Listes des films</h1>
         <div class="row row-cols-auto justify-content-center">
-            <?php $debut = 0;
-            for ($i = $debut; $i < count($films) ; $i++) {?>
+            <?php
+            for ($i = 0; $i < count($films) ; $i++) {?>
                 <div class="card col m-4" style="width: 18rem;">
                     <img src="<?php echo($images[$i]);?>" class="card-img-top pt-2" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title text-danger"><?php echo($titres[$i]);?> </h5>
+                        <h5 class="card-title text-primary"><?php echo($titres[$i]);?> </h5>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
@@ -39,7 +49,7 @@ head();
                     </ul>
                     <div class="card-body">
                         <?php
-                        echo ('<a href="./detail.php?nom='.$i.'"
+                        echo ('<a href="./detail.php?nom='.$films[$i]["id"].'"
                         class="btn btn-primary btn-outline-dark rounded-pill text-decoration-none border-dark">Détail</a>');
                         ?>
                     </div>
