@@ -17,7 +17,7 @@ head();
     <title>Cinemathèque</title>
 </head>
 <body>
-<main>l
+<main>
     <div class="container text-center mt-3">
         <h1 class="text-start text-primary text-bg-secondary">Tous les films</h1>
         <div class="row row-cols-auto justify-content-center">
