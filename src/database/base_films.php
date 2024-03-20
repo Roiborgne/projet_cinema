@@ -1,6 +1,5 @@
 <?php
-require_once '../base.php';
-require_once BASE_PROJET .'/src/config/pdo.php';
+require_once '../database/base2.php';
 
 
 $test_film = $pdo-> prepare('SELECT * FROM film');

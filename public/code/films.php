@@ -1,6 +1,9 @@
 <?php
 require_once '../base.php';
-require_once BASE_PROJET .'/src/config/config-db.php';
+require_once BASE_PROJET .'/src/config/pdo.php';
+require_once BASE_PROJET .'/src/_partials/header.php';
+require_once BASE_PROJET .'/src/database/base_films.php';
+require_once BASE_PROJET .'/src/database/base_utilisateurs.php';
 
 head();
 ?>

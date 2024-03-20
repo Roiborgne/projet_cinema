@@ -1,6 +1,9 @@
 <?php
-require_once "../assets/pdo.php";
-require_once "fonction.php";
+require_once '../base.php';
+require_once BASE_PROJET .'/src/config/pdo.php';
+require_once BASE_PROJET .'/src/_partials/header.php';
+require_once BASE_PROJET .'/src/database/base_films.php';
+require_once BASE_PROJET .'/src/database/base_utilisateurs.php';
 
 head();
 ?>
@@ -11,7 +14,7 @@ head();
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <title>Cinemathèque</title>
@@ -58,7 +61,7 @@ head();
         </div>
     </div>
 
-<script src="../assets/bootstrap.bundle.min.js"></script>
+<script src="assets/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
