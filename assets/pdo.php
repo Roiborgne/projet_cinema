@@ -16,6 +16,12 @@ foreach ($films as $champs) {
     $pays [] = $champs ["pays"] ;
     $images [] = $champs ["image"];
 }
+foreach ($dates as $date) {
+    $dates_ymj = explode("-",$date);
+    $annees [] = $dates_ymj [0];
+    $mois [] = $dates_ymj [1];
+    $jours [] = $dates_ymj [2];
+}
 
 $test_utilisateur = $mysqlClient-> prepare('SELECT * FROM utilisateur');
 $test_utilisateur -> execute();

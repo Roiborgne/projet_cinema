@@ -2,10 +2,12 @@
 require_once "../assets/pdo.php";
 require_once "fonction.php";
 
-if ($_GET ['nom'] == 0){
-    $nom=$_GET['nom'];
-} elseif(!empty($_GET['nom'])){
-    $nom=$_GET['nom'];
+if($_GET ["id"] > count($films) or $_GET ["id"] == null) {
+    header(header:"Location: ./index.php");
+}elseif ($_GET ["id"] == 0){
+    $id=$_GET["id"];
+} elseif(!empty($_GET["id"])){
+    $id=$_GET["id"];
 }
 
 head();
@@ -21,36 +23,35 @@ head();
     <link rel="stylesheet" href="../assets/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <title><?php echo($titres[$nom]);?></title>
+    <title><?php echo($titres[$id]);?></title>
 </head>
 <body>
 
 <div class="container mt-5">
-    <h1 class="text-center text-primary text-bg-secondary"><?php echo($titres[$nom]);?></h1>
+    <h1 class="text-center text-primary text-bg-secondary"><?php echo($titres[$id]);?></h1>
 </div>
 
 <div class="container text-center mt-5">
     <div class="row row-gap-4">
-        <img class="col col-12 col-lg-4 border py-2" src="<?php echo($images[$nom]);?>" alt="affiche">
+        <img class="col col-12 col-lg-4 border py-2" src="<?php echo($images[$id]);?>" alt="affiche">
         <div class="col col-12 col-lg-8 border">
             <div class="row row-cols-3 py-5 row-gap-5">
                 <div class="col fs-4">
-                    <p class="mx-auto"> <i class="bi bi-airplane-fill"></i> <?php echo "pays : ".$pays[$nom]; ?> </p>
+                    <p class="mx-auto"> <i class="bi bi-airplane-fill"></i> <?php echo $pays[$id]; ?> </p>
                 </div>
                 <div class="col fs-4">
-                    <p class="mx-auto"> <i class="bi bi-calendar-event"></i> <?php echo "date : ".$dates[$nom] ?> </p>
+                    <p class="mx-auto"> <i class="bi bi-calendar-event"></i> <?php echo "$jours[$id] / $mois[$id] / $annees[$id]"; ?> </p>
                 </div>
                 <div class="col fs-4">
                     <p class="mx-aut"> <i class="bi bi-hourglass-split"></i>
                         <?php
-                        $seconds = $durees[$nom] * 60;
-                        echo "durées : ".gmdate("H \h i", $seconds);
+                        echo gmdate("H \h i", $durees[$id] * 60);
                         ?>
                     </p>
                 </div>
                 <div class="col-12 mt-3">
                     <h3 class="text-center text-primary text-bg-secondary mt-3"><i class="bi bi-file-text-fill"></i> Résumé</h3>
-                    <p class="text-start fs-4"><?php echo($resumes[$nom]);?></p>
+                    <p class="text-start fs-4"><?php echo($resumes[$id]);?></p>
                 </div>
             </div>
         </div>

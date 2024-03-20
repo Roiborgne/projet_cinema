@@ -19,23 +19,22 @@ head();
 <body>
 <main>
     <div class="container text-center mt-3">
-        <h1 class="text-start text-primary text-bg-secondary">Tous les films</h1>
+        <h1 class="text-start text-primary text-bg-secondary">Lites des films</h1>
         <div class="row row-cols-auto justify-content-center">
             <?php for ($i = 0; $i < count($films); $i++) {?>
                 <div class="card col m-4" style="width: 18rem;">
                     <img src="<?php echo($images[$i]);?>" class="card-img-top mt-2" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title text-danger"><?php echo($titres[$i]);?> </h5>
+                    <div class="card-header text-bg-secondary">
+                        <h5 class="card-title text-primary fs-3"><?php echo($titres[$i]);?></h5>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <?php $seconds = $durees[$i]*60;
-                            echo "durée : ".gmdate("H", $seconds)." h ".gmdate("i", $seconds); ?>
-                        </li>
-                    </ul>
                     <div class="card-body">
+                        <?php $seconds = $durees[$i]*60;
+                        echo gmdate("H", $seconds)." h ".gmdate("i", $seconds); ?>
+                    </div>
+
+                    <div class="card-footer text-bg-secondary">
                         <?php
-                        echo ('<a href="./detail.php?nom='.$i.'" class="card-link">Détail</a>');
+                        echo ('<a href="./detail.php?id='.$i.'" class="btn btn-primary btn-outline-dark rounded-pill text-decoration-none border-dark">Détail</a>');
                         ?>
 
                     </div>
