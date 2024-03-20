@@ -23,7 +23,7 @@ head();
         <div class="row row-cols-auto justify-content-center">
             <?php for ($i = 0; $i < count($films); $i++) {?>
                 <div class="card col m-4" style="width: 18rem;">
-                    <img src="<?php echo($images[$i]);?>" class="card-img-top" alt="...">
+                    <img src="<?php echo($images[$i]);?>" class="card-img-top mt-2" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-danger"><?php echo($titres[$i]);?> </h5>
                     </div>

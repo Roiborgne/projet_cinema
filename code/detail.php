@@ -25,37 +25,33 @@ head();
 </head>
 <body>
 
-<div class="container mt-3">
+<div class="container mt-5">
     <h1 class="text-center text-primary text-bg-secondary"><?php echo($titres[$nom]);?></h1>
 </div>
 
-<div class="container text-center">
-    <div class="row">
-        <div class="col border">
-            <img class="d-block w-75 h-75 my-5 mx-auto" src="<?php echo($images[$nom]);?>" alt="affiche">
-        </div>
-        <div class="col align-middle text-center border ">
-            <div><p class="mx-auto text-decoration-underline"><?php echo "pays :" ?> </p>
-                <p class="mx-auto">
-                    <?php echo ($pays[$nom]); ?>
-                </p>
-            </div>
-            <div>
-                <p class="mx-auto text-decoration-underline"><?php echo "date :" ?> </p>
-                <p class="mx-auto">
-                    <?php echo ($dates[$nom]); ?>
-                </p>
-            </div>
-            <div>
-                <p class="mx-auto text-decoration-underline"><?php echo "durées :" ?> </p>
-                <p class="mx-auto">
-                    <?php $seconds = $durees[$nom]*60;
-                    echo gmdate("H \h i", $seconds); ?>
-                </p>
-            </div>
-            <div class="container mt-3">
-                <h3 class="text-center text-primary text-bg-secondary mt-3">Résumé</h3>
-                <p class="text-start"><?php echo($resumes[$nom]);?></p>
+<div class="container text-center mt-5">
+    <div class="row row-gap-4">
+        <img class="col col-12 col-lg-4 border py-2" src="<?php echo($images[$nom]);?>" alt="affiche">
+        <div class="col col-12 col-lg-8 border">
+            <div class="row row-cols-3 py-5 row-gap-5">
+                <div class="col fs-4">
+                    <p class="mx-auto"> <i class="bi bi-airplane-fill"></i> <?php echo "pays : ".$pays[$nom]; ?> </p>
+                </div>
+                <div class="col fs-4">
+                    <p class="mx-auto"> <i class="bi bi-calendar-event"></i> <?php echo "date : ".$dates[$nom] ?> </p>
+                </div>
+                <div class="col fs-4">
+                    <p class="mx-aut"> <i class="bi bi-hourglass-split"></i>
+                        <?php
+                        $seconds = $durees[$nom] * 60;
+                        echo "durées : ".gmdate("H \h i", $seconds);
+                        ?>
+                    </p>
+                </div>
+                <div class="col-12 mt-3">
+                    <h3 class="text-center text-primary text-bg-secondary mt-3"><i class="bi bi-file-text-fill"></i> Résumé</h3>
+                    <p class="text-start fs-4"><?php echo($resumes[$nom]);?></p>
+                </div>
             </div>
         </div>
     </div>

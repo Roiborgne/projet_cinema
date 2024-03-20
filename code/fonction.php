@@ -36,6 +36,7 @@ require_once "../assets/pdo.php";
             </div>
         </div>
     </nav>
+    <script src="../assets/bootstrap.bundle.min.js"></script>
 </header>
 <?php }?>
 
