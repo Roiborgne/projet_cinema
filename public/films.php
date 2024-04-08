@@ -2,7 +2,6 @@
 require_once '../base.php';
 require_once BASE_PROJET .'/src/_partials/header.php';
 require_once BASE_PROJET .'/src/database/base_films.php';
-require_once BASE_PROJET .'/src/database/base_utilisateurs.php';
 
 head();
 $films = recupFilms();
@@ -39,7 +38,7 @@ foreach ($films as $champs) {
                 <div class="card col m-4" style="width: 18rem;">
                     <img src="<?php echo($images[$i]);?>" class="card-img-top pt-2" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title text-primary"><?php echo($titres[$i]);?> </h5>
+                        <h5 class="card-title text-primary text-bg-dark h-100"><?php echo($titres[$i]);?> </h5>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">

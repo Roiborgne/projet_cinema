@@ -3,7 +3,6 @@ require_once '../base.php';
 require_once BASE_PROJET .'/src/_partials/header.php';
 require_once BASE_PROJET .'/src/database/base_films.php';
 require_once BASE_PROJET .'/src/database/base_utilisateurs.php';
-
 head();
 $films = recupFilms();
 foreach ($films as $champs) {

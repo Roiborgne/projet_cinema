@@ -1,9 +1,14 @@
 <?php
-require_once "../assets/pdo.php";
-require_once "fonction.php";
+require_once '../base.php';
+require_once BASE_PROJET .'/src/_partials/header.php';
+require_once BASE_PROJET .'/src/database/base_utilisateurs.php';
+require_once BASE_PROJET .'/src/_partials/fonction.php';
 
 head();
-
+if (isset($_SESSION["utilisateur"])){
+    interdit();
+}else {
+$pdo=connexion();
 
 $pseudo = "";
 $email = "";
@@ -22,59 +27,50 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $mdp_verif = $_POST ["mdp_verif"];
     $pseudo = $_POST ["pseudo"];
     $mdp_hache = password_hash($mdp,PASSWORD_ARGON2I);
-}
 
 
 //Validification des données
-$erreurs = [];
+    $erreurs = [];
 //email
-if (empty($email)){
-    $erreurs["email"] = "L'email est obligatoire";
+    if (empty($email)){
+        $erreurs["email"] = "L'email est obligatoire";
 
-}if (verif_email($email, $mysqlClient)>=1){
-    $erreurs["email"] = "Le mail est déjà utilisé";
+    }if (verif_email($email, $pdo)>=1){
+        $erreurs["email"] = "Le mail est déjà utilisé";
 
-}elseif (!filter_var($email,FILTER_VALIDATE_EMAIL)){
-    $erreurs["email"] = "L'email n'est pas valide";
+    }elseif (!filter_var($email,FILTER_VALIDATE_EMAIL)){
+        $erreurs["email"] = "L'email n'est pas valide";
 
 
-    //pseudo
-}if (empty($pseudo)){
-    $erreurs["pseudo"] = "Le pseudo est obligatoire";
+        //pseudo
+    }if (empty($pseudo)){
+        $erreurs["pseudo"] = "Le pseudo est obligatoire";
 
-    //mdp
-}if (empty($mdp)){
-    $erreurs["mdp"] = "Le mot de passe est obligatoire";
+        //mdp
+    }if (empty($mdp)){
+        $erreurs["mdp"] = "Le mot de passe est obligatoire";
 
-}elseif (strlen($mdp) < 8 or strlen($mdp) > 14) {
-    $erreurs["mdp"] = "Le mot de passe doit contenir entre 8 et 14 caractères";
-}elseif (!testmdp($mdp, $erreurs)){
-    $erreurs["mdp"] = testmdp($mdp, $erreurs);
+    }elseif (testmdp($mdp, $erreurs)){
+        $erreurs["mdp"] = testmdp($mdp, $erreurs);
 
-    //mdp verif
-}if ($mdp_verif != $mdp) {
-    $erreurs["mdp_verif"] = "Le mot de passe doit être identique";
-}
+        //mdp verif
+    }if ($mdp_verif != $mdp) {
+        $erreurs["mdp_verif"] = "Le mot de passe doit être identique";
+    }
 
 
 //Traiter les données
-if (empty($erreurs)){
-    //traiter les infos
-    $sqlQuery = 'INSERT INTO utilisateur(pseudo_utilisateur, email_utilisateur, mdp_utilisateur) VALUES (:pseudo, :email, :mdp)';
-    // Préparation
-    $inscription = $mysqlClient->prepare($sqlQuery);
-
-    // Exécution
-    $inscription->execute([
-        'pseudo' => $pseudo,
-        'email' => $email,
-        'mdp' => $mdp_hache,
-    ]);
+    if (empty($erreurs)){
+        //traiter les infos
+        creerUtilisateur($pseudo,$email,$mdp_hache);
 
 //Rediriger l'utilisateur vers une autre page du site (Page accueil)
-    header(header:"Location: ./films.php");
-    exit();
+        header(header:"Location: ./index.php");
+        exit();
+    }
+
 }
+
 
 ?>
 <!doctype html>
@@ -92,16 +88,17 @@ if (empty($erreurs)){
 <body>
 
 <div class="container">
+    <h1 class="text-center text-primary text-bg-secondary mt-3">Inscription</h1>
     <form action="" method="post" class="w-50 mx-auto p-4 my-5 shadow bg-dark">
 
         <div class="mb-3">
             <label class="form-label" for="pseudo">Pseudo*</label>
             <input
-                type="text"
-                class="form-control <?php if(isset($erreurs["pseudo"])) echo("border border-danger border-3")?>"
-                id="pseudo"
-                name="pseudo"
-                value="<?= $pseudo?>"
+                    type="text"
+                    class="form-control <?php if(isset($erreurs["pseudo"])) echo("border border-danger border-3")?>"
+                    id="pseudo"
+                    name="pseudo"
+                    value="<?= $pseudo?>"
             >
 
             <?php if (isset($erreurs["pseudo"])): ?>
@@ -112,13 +109,13 @@ if (empty($erreurs)){
         <div class="mb-3">
             <label for="Email" class="form-label ">Email*</label>
             <input
-                type="email"
-                class="form-control <?php if(isset($erreurs["email"])) echo("border border-danger border-3")?>"
-                id="Email"
-                name="email"
-                value="<?= $email?>"
-                aria-describedby="emailHelp"
-                formnovalidate
+                    type="email"
+                    class="form-control <?php if(isset($erreurs["email"])) echo("border border-danger border-3")?>"
+                    id="Email"
+                    name="email"
+                    value="<?= $email?>"
+                    aria-describedby="emailHelp"
+                    formnovalidate
             >
 
             <?php if (isset($erreurs["email"])): ?>
@@ -127,18 +124,18 @@ if (empty($erreurs)){
         </div>
 
         <div class="mb-3">
-                <label class="form-label" for="mdp">Mot de passe*</label>
-                <input
+            <label class="form-label" for="mdp">Mot de passe*</label>
+            <input
                     type="password"
                     class="form-control <?php if(isset($erreurs["mdp"])) echo("border border-danger border-3")?>"
                     id="mdp"
                     name="mdp"
                     value="<?= $mdp?>"
-                >
+            >
 
-                <?php if (isset($erreurs["mdp"])): ?>
-                    <p class="form-text text-danger"><?php echo($erreurs["mdp"]) ?></p>
-                <?php endif; ?>
+            <?php if (isset($erreurs["mdp"])): ?>
+                <p class="form-text text-danger"><?php echo($erreurs["mdp"]) ?></p>
+            <?php endif; ?>
         </div>
 
         <div class="mb-3">
@@ -162,3 +159,5 @@ if (empty($erreurs)){
 <script src="assets/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+    <?php } ?>

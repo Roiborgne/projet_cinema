@@ -3,6 +3,7 @@ require_once "../base.php";
 require_once BASE_PROJET .'/src/config/pdo.php';
 require_once BASE_PROJET .'/src/database/base_films.php';
 require_once BASE_PROJET .'/src/_partials/header.php';
+require_once BASE_PROJET .'/src/_partials/fonction.php';
 
 if ($_GET ['nom'] == 0){
     $nom=$_GET['nom'];
@@ -14,6 +15,7 @@ head();
 
 $films = recupFilms();
 $details = recupDetails($nom);
+$details["date"] = dateFormat($details);
 ?>
 
 <!doctype html>
@@ -43,7 +45,7 @@ $details = recupDetails($nom);
                     <p class="mx-auto"> <i class="bi bi-airplane-fill"></i> <?php echo $details["pays"]; ?> </p>
                 </div>
                 <div class="col fs-4">
-                    <p class="mx-auto"> <i class="bi bi-calendar-event"></i> <?php echo $details["date"] ?> </p>
+                    <p class="mx-auto"> <i class="bi bi-calendar-event"></i> <?php echo $details["date"]["jour"]."-".$details["date"]["mois"]."-".$details["date"]["année"] ?> </p>
                 </div>
                 <div class="col fs-4">
                     <p class="mx-aut"> <i class="bi bi-hourglass-split"></i>
@@ -56,6 +58,11 @@ $details = recupDetails($nom);
                 <div class="col-12 mt-3">
                     <h3 class="text-center text-primary text-bg-secondary mt-3"><i class="bi bi-file-text-fill"></i> Résumé</h3>
                     <p class="text-start fs-4"><?php echo($details["résumé"]);?></p>
+                    <p class="text-end fst-italic fs-4"> <?php if ($details["id_utilisateur"] != NULL){
+                        echo ("ajouté par ".$details["pseudo_utilisateur"]);
+                        }else{
+                        echo("ajouté par l'admin");
+                        } ?> </p>
                 </div>
             </div>
         </div>

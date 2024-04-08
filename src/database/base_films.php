@@ -1,4 +1,6 @@
 <?php
+require_once '../base.php';
+require_once BASE_PROJET .'/src/config/pdo.php';
 
 function recupFilms(): array
 {
@@ -11,6 +13,13 @@ function recupFilms(): array
 function recupDetails($nom): array
 {
     $pdo = connexion();
-    $details = $pdo->query("SELECT * FROM film WHERE id = $nom ");
+    $details = $pdo->query("SELECT * FROM film, utilisateur WHERE film.id_utilisateur=utilisateur.id_utilisateur AND id = $nom");
     return $details->fetch(PDO::FETCH_ASSOC);
+}
+
+function ajoutFilm($titre, $duree, $resume, $date, $pays, $image, $id_utilisateur): void
+{
+    $pdo = connexion();
+    $resume = str_replace("'","\'", $resume);
+    $pdo->query("INSERT INTO `film` (`id`, `titre`, `durée`, `résumé`, `date`, `pays`, `image`, `id_utilisateur`) VALUES (NULL, '$titre', '$duree', '$resume', '$date', '$pays', '$image', '$id_utilisateur');");
 }
