@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             >
 
             <?php if (isset($erreurs["mdp"])): ?>
-                <p class="form-text text-danger"><?php echo($erreurs["mdp"]) ?></p>
+                <p class="form-text text-danger"><?php print_r($erreurs) ?></p>
             <?php endif; ?>
         </div>
 
