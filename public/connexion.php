@@ -1,6 +1,7 @@
 <?php
 require_once '../base.php';
 require_once BASE_PROJET .'/src/_partials/header.php';
+require_once BASE_PROJET .'/src/_partials/fonction.php';
 require_once BASE_PROJET .'/src/database/base_utilisateurs.php';
 
 
