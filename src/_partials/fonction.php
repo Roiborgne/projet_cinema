@@ -27,44 +27,57 @@ function testmdp($mdp,$erreurs){
     $maj = false;
     $caract = false;
     $longueur_mdp = false;
-    $longueur = strlen($mdp);
-    for ($i = 0; $i < $longueur; $i++) {
-        // On sélectionne une à une chaque lettre
-        $lettre = $mdp[$i];
-        if (ctype_upper($lettre)){
-            $maj = true;
-        }elseif (ctype_lower($lettre)){
-            $min = true;
-        }elseif ( ctype_digit($lettre)){
-            $nbr = true;
-        }elseif ( !ctype_alnum($lettre)){
-            $caract = true;
-        }elseif (strlen($mdp) < 8 or strlen($mdp) > 14) {
-            $longueur_mdp = true;
+    if (empty($mdp)) {
+        $erreurs["mdp"] = "Le mot de passe est obligatoire";
+    }else{
+        $longueur = strlen($mdp);
+        for ($i = 0; $i < $longueur; $i++) {
+            // On sélectionne une à une chaque lettre
+            if (ctype_upper($mdp[$i])){
+                $maj = true;
+            }if (ctype_lower($mdp[$i])){
+                $min = true;
+            }if ( ctype_digit($mdp[$i])){
+                $nbr = true;
+            }if ( !ctype_alnum($mdp[$i])){
+                $caract = true;
+            }if (strlen($mdp) > 8 and strlen($mdp) < 14) {
+                $longueur_mdp = true;
+            }
         }
-
+        if (!$maj){
+            $erreurs["mdp"]["maj"] = "Il faut au moins une majucule";
+        }if (!$min){
+            $erreurs["mdp"]["min"] = "Il faut au moins une minuscule";
+        }if (!$nbr){
+            $erreurs["mdp"]["nbr"] = "Il faut au moins un nombre";
+        }if (!$caract){
+            $erreurs["mdp"]["carac"] = "Il faut au moins un caractère spécial";
+        }if (!$longueur_mdp){
+            $erreurs["mdp"]["long"] = "Le mot de passe doit contenir entre 8 et 14 caractères";
+        }
     }
-    if (!$maj){
-        $erreurs["mdp"] = "Il faut au moins une majuscule";
-    }elseif (!$min){
-        $erreurs["mdp"] = "Il faut au moins une minuscule";
-    }elseif (!$nbr){
-        $erreurs["mdp"] = "Il faut au moins un nombre";
-    }elseif (!$caract){
-        $erreurs["mdp"] = "Il faut au moins un caractère spécial";
-    }elseif ($longueur_mdp){
-        $erreurs["mdp"] = "Le mot de passe doit contenir entre 8 et 14 caractères";
-    }
-
-    return $erreurs;
+    return $erreurs["mdp"];
 }
-
-function dateFormat ($details): array
+function dateFormat ($liste): string
 {
-    $dateExplode = explode("-",$details["date"]);
-    $date["année"] = $dateExplode[0];
-    $date["mois"] = $dateExplode[1];
-    $date["jour"] = $dateExplode[2];
+    if (str_contains($liste, ":")){
+        $dateHeure = explode(" ",$liste);
+        $dateExplode = explode("-",$dateHeure[0]);
+        $heureExplode = explode(":",$dateHeure[1]);
+        $date["année"] = $dateExplode[0];
+        $date["mois"] = $dateExplode[1];
+        $date["jour"] = $dateExplode[2];
+        $date ["heure"] = $heureExplode[0];
+        $date ["min"] = $heureExplode[1];
+        $date = $date["jour"]."/".$date["mois"]."/".$date["année"]." ".$date["heure"]."h".$date["min"];
+    }else{
+        $dateExplode = explode("-",$liste);
+        $date["année"] = $dateExplode[0];
+        $date["mois"] = $dateExplode[1];
+        $date["jour"] = $dateExplode[2];
+        $date = $date["jour"]."/".$date["mois"]."/".$date["année"];
+    }
     return $date;
 }
 
@@ -86,6 +99,8 @@ function interdit ():void
     <div class="container">
         <p class="text-warning text-center fs-1 pt-5 mt-5">ERREUR 403 <br> <span class="text-primary fst-italic fs-5">accès interdit</span></p>
     </div>
+
+    <script src="../assets/bootstrap.bundle.min.js"></script>
 </body>
 
 <?php

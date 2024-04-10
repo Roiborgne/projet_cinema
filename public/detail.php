@@ -2,20 +2,33 @@
 require_once "../base.php";
 require_once BASE_PROJET .'/src/config/pdo.php';
 require_once BASE_PROJET .'/src/database/base_films.php';
+require_once BASE_PROJET .'/src/database/base_commentaire.php';
 require_once BASE_PROJET .'/src/_partials/header.php';
 require_once BASE_PROJET .'/src/_partials/fonction.php';
 
-if ($_GET ['nom'] == 0){
-    $nom=$_GET['nom'];
-} elseif(!empty($_GET['nom'])){
-    $nom=$_GET['nom'];
+if ($_GET ['id'] == 0){
+    $id=$_GET['id'];
+} elseif(!empty($_GET['id'])){
+    $id=$_GET['id'];
 }
 
 head();
 
 $films = recupFilms();
-$details = recupDetails($nom);
-$details["date"] = dateFormat($details);
+$details = recupDetails($id);
+$date = $details["date"];
+$details["date"] = dateFormat($date);
+$coms = recupCom($id);
+foreach ($coms as $champs) {
+    $ids [] = $champs ["id_commentaire"];
+    $titres [] = $champs ["titre"] ;
+    $avis [] = $champs ["avis"] ;
+    $notes [] = $champs ["notes"] ;
+    $dates [] = $champs ["date"] ;
+    $id_utilisateur [] = $champs ["id_utilisateur"] ;
+    $id_film [] = $champs ["id_film"];
+}
+$dates = dateFormat($dates[$id-1]);
 ?>
 
 <!doctype html>
@@ -45,7 +58,7 @@ $details["date"] = dateFormat($details);
                     <p class="mx-auto"> <i class="bi bi-airplane-fill"></i> <?php echo $details["pays"]; ?> </p>
                 </div>
                 <div class="col fs-4">
-                    <p class="mx-auto"> <i class="bi bi-calendar-event"></i> <?php echo $details["date"]["jour"]."-".$details["date"]["mois"]."-".$details["date"]["année"] ?> </p>
+                    <p class="mx-auto"> <i class="bi bi-calendar-event"></i> <?php echo $details["date"] ?> </p>
                 </div>
                 <div class="col fs-4">
                     <p class="mx-aut"> <i class="bi bi-hourglass-split"></i>
@@ -68,6 +81,33 @@ $details["date"] = dateFormat($details);
         </div>
     </div>
 </div>
+
+<div class="container text-center mt-5">
+    <h1 class="text-center text-primary text-bg-secondary"><i class="bi bi-stars"></i>commentaires</h1>
+</div>
+
+<div class="container text-start">
+    <a href="" class="btn btn-primary ">Ajouter un nouveau commentaire</a>
+    <?php
+    for ($i = 0; $i < count($coms) ; $i++) {?>
+        <div class="card my-3">
+            <div class="card-header">
+                <p class="card-title text-primary "><?php echo($titres[$i]." ");
+                echo (str_repeat("<i class=\"bi bi-star-fill\"></i>",$notes[$i])); ?></p>
+            </div>
+            <div class="card-body">
+                <p class="list-group list-group-flush">
+                    <?php echo $avis[$i]; ?>
+                </p>
+                <span class="fs-6 fst-italic fw-lighter">De Logan le
+                    <?php echo($dates) ?><br>
+                </span>
+            </div>
+        </div>
+    <?php } ?>
+</div>
+
+<script src="../assets/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

@@ -25,6 +25,10 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <?php if(isset($_SESSION["utilisateur"])){ ?>
+                                    <li><a class="dropdown-item" href="./ajouter.php">Ajoutez un film</a></li>
+                                    <li><a class="dropdown-item" href="./mesFilms.php">Mes Films</a></li>
+                                    <li><a class="dropdown-item" href="./favoris.php">Mes favoris</a></li>
+                                    <li class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="./deconnexion.php">Deconnexion</a></li>
                                 <?php } else {  ?>
                                 <li><a class="dropdown-item" href="./inscription.php">Inscription</a></li>
@@ -33,9 +37,6 @@
                                 <?php }  ?>
                             </ul>
                         </li>
-                        <?php if(isset($_SESSION["utilisateur"])){ ?>
-                            <li class="nav-item"><a class="nav-link active" href="./ajouter.php">Ajoutez un film</a></li>
-                        <?php } ?>
                     </ul>
                     <form class="d-flex me-3 my-auto" role="search">
                         <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search">

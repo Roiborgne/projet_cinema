@@ -1,18 +1,26 @@
 <?php
+
 require_once '../base.php';
-require_once BASE_PROJET .'/src/_partials/header.php';
-require_once BASE_PROJET .'/src/database/base_films.php';
+require_once BASE_PROJET . '/src/_partials/header.php';
+require_once BASE_PROJET . '/src/database/base_utilisateurs.php';
+require_once BASE_PROJET . '/src/_partials/fonction.php';
 
 head();
-$films = recupFilms();
-foreach ($films as $champs) {
-    $ids [] = $champs ["id"];
-    $titres [] = $champs ["titre"] ;
-    $durees [] = $champs ["durée"] ;
-    $resumes [] = $champs ["résumé"] ;
-    $dates [] = $champs ["date"] ;
-    $pays [] = $champs ["pays"] ;
-    $images [] = $champs ["image"];
+if (!isset($_SESSION["utilisateur"])) {
+    interdit();
+} else {
+    $email = $_SESSION["utilisateur"]["email"];
+    $id_utilisateur = recupUtilisateur($email);
+    $id_utilisateur = $id_utilisateur[0]["id_utilisateur"];
+    $films = recupMesFilms($id_utilisateur);
+    foreach ($films as $champs) {
+        $ids [] = $champs ["id"];
+        $titres [] = $champs ["titre"] ;
+        $durees [] = $champs ["durée"] ;
+        $resumes [] = $champs ["résumé"] ;
+        $dates [] = $champs ["date"] ;
+        $pays [] = $champs ["pays"] ;
+        $images [] = $champs ["image"];
 }
 ?>
 
@@ -48,10 +56,9 @@ foreach ($films as $champs) {
                     </ul>
                     <div class="card-body">
                         <?php
-                        echo ('<a href="./detail.php?id='.$films[$i]["id"].'"
+                        echo ('<a href="./detail.php?nom='.$films[$i]["id"].'"
                         class="btn btn-primary btn-outline-dark rounded-pill text-decoration-none border-dark">Détail</a>');
                         ?>
-                        <a class="btn btn-primary btn-outline-dark rounded-pill text-decoration-none border-dark">Favoris</a>
                     </div>
                 </div>
             <?php } ?>
@@ -73,3 +80,4 @@ foreach ($films as $champs) {
 <script src="../assets/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php } ?>

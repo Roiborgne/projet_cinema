@@ -8,6 +8,12 @@ function recupFilms(): array
     $films = $pdo->query("SELECT * FROM film");
     return $films->fetchAll(PDO::FETCH_ASSOC);
 }
+function recupMesFilms($id_utilisateur): array
+{
+    $pdo = connexion();
+    $films = $pdo->query("SELECT * FROM film where $id_utilisateur = id_utilisateur");
+    return $films->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
 function recupDetails($nom): array

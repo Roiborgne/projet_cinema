@@ -47,10 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreurs["pseudo"] = "Le pseudo est obligatoire";
 
         //mdp
-    }if (empty($mdp)){
-        $erreurs["mdp"] = "Le mot de passe est obligatoire";
-
-    }elseif (testmdp($mdp, $erreurs)){
+    }if (testmdp($mdp, $erreurs)){
         $erreurs["mdp"] = testmdp($mdp, $erreurs);
 
         //mdp verif
@@ -92,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <form action="" method="post" class="w-50 mx-auto p-4 my-5 shadow bg-dark">
 
         <div class="mb-3">
-            <label class="form-label" for="pseudo">Pseudo*</label>
+            <label class="form-label fs-5" for="pseudo">Pseudo*</label>
             <input
                     type="text"
                     class="form-control <?php if(isset($erreurs["pseudo"])) echo("border border-danger border-3")?>"
@@ -107,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
 
         <div class="mb-3">
-            <label for="Email" class="form-label ">Email*</label>
+            <label for="Email" class="form-label fs-5 ">Email*</label>
             <input
                     type="email"
                     class="form-control <?php if(isset($erreurs["email"])) echo("border border-danger border-3")?>"
@@ -124,7 +121,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
 
         <div class="mb-3">
-            <label class="form-label" for="mdp">Mot de passe*</label>
+            <label class="form-label fs-5" for="mdp">Mot de passe*</label>
+
+            <p class="fst-italic">
+                    (majucule,
+                    minuscule,
+                    nombre,
+                    caractère spécial,
+                    avoir entre 8 et 14 caractères)
+            </p>
             <input
                     type="password"
                     class="form-control <?php if(isset($erreurs["mdp"])) echo("border border-danger border-3")?>"
@@ -134,12 +139,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             >
 
             <?php if (isset($erreurs["mdp"])): ?>
-                <p class="form-text text-danger"><?php print_r($erreurs) ?></p>
+                <p class="form-text text-danger"><?php
+                    if (is_array($erreurs["mdp"]))
+                    {
+                        foreach ($erreurs["mdp"] as $erreur)
+                        {
+                            echo($erreur . "<br>");
+                        }
+                    }else{
+                        echo $erreurs["mdp"];
+                    }?>
+                </p>
             <?php endif; ?>
         </div>
 
         <div class="mb-3">
-            <label class="form-label" for="mdp_verif">Mot de passe vérification*</label>
+            <label class="form-label fs-5" for="mdp_verif">Mot de passe vérification*</label>
             <input
                     type="password"
                     class="form-control <?php if(isset($erreurs["mdp_verif"])) echo("border border-danger border-3")?>"
