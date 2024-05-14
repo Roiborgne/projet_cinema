@@ -87,7 +87,10 @@ $dates = dateFormat($dates[$id-1]);
 </div>
 
 <div class="container text-start">
-    <a href="" class="btn btn-primary ">Ajouter un nouveau commentaire</a>
+    <?php if (isset($_SESSION["utilisateur"])){
+        echo('<a href="commentaire.php" class="btn btn-primary ">Ajouter un nouveau commentaire</a>');
+    }
+    ?>
     <?php
     for ($i = 0; $i < count($coms) ; $i++) {?>
         <div class="card my-3">

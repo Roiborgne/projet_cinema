@@ -1,11 +1,11 @@
 <?php
 require_once '../base.php';
 require_once BASE_PROJET .'/src/_partials/header.php';
-require_once BASE_PROJET .'/src/database/base_utilisateurs.php';
+require_once BASE_PROJET .'/src/database/base_clients.php';
 require_once BASE_PROJET .'/src/_partials/fonction.php';
 
-head();
-if (isset($_SESSION["utilisateur"])){
+
+if (isset($_SESSION["client"])){
     interdit();
 }else {
 $pdo=connexion();
@@ -19,7 +19,7 @@ $mdp_hache = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 //Le formulaire est soumis !
 //Traiter les données du formulaire
-//Récuperer les valeurs saisis de l'utilisateur
+//Récuperer les valeurs saisis de l'client
 //superglobale $_POST : tableaux assoc
     $email = $_POST ["email"];
     //mdp hash
@@ -59,9 +59,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 //Traiter les données
     if (empty($erreurs)){
         //traiter les infos
-        creerUtilisateur($pseudo,$email,$mdp_hache);
+        creerClient($pseudo,$email,$mdp_hache);
 
-//Rediriger l'utilisateur vers une autre page du site (Page accueil)
+//Rediriger le client vers une autre page du site (Page accueil)
         header(header:"Location: ./index.php");
         exit();
     }
