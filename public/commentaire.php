@@ -49,7 +49,6 @@ if (!isset($_SESSION["utilisateur"])){
         if (empty($erreurs)) {
             //fonction insérer dans film
             $id_utilisateur = recupUtilisateur($email);
-            $id_utilisateur = $id_utilisateur[0];
             $id_utilisateur = $id_utilisateur["id_utilisateur"];
             ajoutcom($titre, $avis, $note, $id_utilisateur);
         }
